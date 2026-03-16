@@ -16,12 +16,8 @@ export class PlayerAnimator extends Component {
 
     private animationMap: Map<AnimationTypes, AnimationClip> = new Map();
 
-    protected start(): void {
+    protected onLoad(): void {
         this.initAnimationMap();
-
-        // this.scheduleOnce(() => {
-        //     this.playPlayerAnimation(AnimationTypes.Run);
-        // }, 3);
     }
 
     public playPlayerAnimation(animationType: AnimationTypes): void {
@@ -36,5 +32,3 @@ export class PlayerAnimator extends Component {
         }
     }
 }
-
-
