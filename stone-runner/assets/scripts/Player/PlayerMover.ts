@@ -8,13 +8,7 @@ export class PlayerMover extends Component {
 
     @property(RigidBody) private playerRigidBody: RigidBody = null;
 
-    protected start(): void {
-        this.scheduleOnce(() => {
-            this.executeJump();
-        }, 3);
-    }
-
-    private executeJump(): void {
+    public executeJump(): void {
         this.playerRigidBody.applyImpulse(v3(0, this.jumpForce, 0));
     }
 }
