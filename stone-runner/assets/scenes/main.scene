@@ -3969,6 +3969,9 @@
     "playerMover": {
       "__id__": 93
     },
+    "playerAnimator": {
+      "__id__": 4
+    },
     "_id": "cbUY/ia4pGzpoect5/weBb"
   },
   {

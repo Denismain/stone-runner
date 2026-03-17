@@ -21,7 +21,9 @@ export class PlayerCollisionDetected extends Component {
         const road = event.otherCollider.node.getComponent(Road);
 
         if (road) {
-            this.playerController._canJump = true;
+            if (this.playerController._canJump === false) {
+                this.playerController.playerOnGround();
+            }
         }
     }
 }
