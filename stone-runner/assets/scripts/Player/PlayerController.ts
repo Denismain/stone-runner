@@ -8,6 +8,16 @@ const {ccclass, property} = _decorator;
 export class PlayerController extends Component {
     @property(PlayerMover) private playerMover: PlayerMover = null;
 
+    private canJump: boolean = false;
+
+    public set _canJump(canJump: boolean) {
+        this.canJump = canJump;
+    }
+
+    protected onLoad(): void {
+        this.canJump = true;
+    }
+
     protected onEnable(): void {
         EventManager.on(Events.TOUCH, this.onTouch, this);
     }
@@ -16,12 +26,16 @@ export class PlayerController extends Component {
         EventManager.off(Events.TOUCH, this.onTouch, this);
     }
 
-    private onTouch(): void {
-        this.attemptToJump();
+    private attemptToJump(): void {
+        if (this.canJump) {
+            this.playerMover.executeJump();
+
+            this.canJump = false;
+        }
     }
 
-    private attemptToJump(): void {
-        this.playerMover.executeJump();
+    private onTouch(): void {
+        this.attemptToJump();
     }
 }
 
