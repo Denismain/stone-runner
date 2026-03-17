@@ -1,11 +1,11 @@
-import {_decorator, BoxCollider, Component, ICollisionEvent} from 'cc';
+import {_decorator, BoxCollider, Component, ConeCollider, ICollisionEvent, SphereCollider} from 'cc';
 import { Road } from '../Road';
 import { PlayerController } from './PlayerController';
 const {ccclass, property} = _decorator;
 
 @ccclass('PlayerCollisionDetected')
 export class PlayerCollisionDetected extends Component {
-    @property(PlayerController) playerController: PlayerController = null;
+    @property(PlayerController) private playerController: PlayerController = null;
 
     @property(BoxCollider) private playerBoxCollider: BoxCollider = null;
 
