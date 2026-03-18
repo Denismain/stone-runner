@@ -1,4 +1,4 @@
-import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3} from 'cc';
+import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3, TweenEasing} from 'cc';
 import EventManager from './Plugins/EventManager';
 import Events from './Enums/Events';
 import Easings from './Enums/Easings';
@@ -34,7 +34,7 @@ export class UIController extends Component {
     }
 
     private async executeTweenHide(node: Node): Promise<void> {
-        const easingType = this.hideEasingType as any;
+        const easingType: TweenEasing = this.hideEasingType.toString() as TweenEasing;
 
         return new Promise<void>((resolve) => {
             tween(node)
@@ -56,7 +56,7 @@ export class UIController extends Component {
     }
 
     private async showShadow(): Promise<void> {
-        const easingType = this.shadowEasingType as any;
+        const easingType: TweenEasing = this.shadowEasingType.toString() as TweenEasing;
 
         return new Promise<void>((resolve) => {
             tween(this.shadowOpacity)
@@ -72,7 +72,7 @@ export class UIController extends Component {
     }
 
     private endLogoShow(): void {
-        const easingType = this.endScreenEasingType as any;
+        const easingType: TweenEasing = this.endScreenEasingType.toString() as TweenEasing;
 
         tween(this.endScreenLogoNode)
             .to(this.endScreenShowDelay,

@@ -1361,17 +1361,17 @@
     "installButtonNode": {
       "__id__": 52
     },
-    "hideEasingType": 25,
+    "hideEasingType": "backIn",
     "hideDelay": 0.4,
     "shadowOpacity": {
       "__id__": 60
     },
-    "shadowEasingType": 15,
+    "shadowEasingType": "sineInOut",
     "shadowShowDelay": 0.2,
     "endScreenLogoNode": {
       "__id__": 62
     },
-    "endScreenEasingType": 26,
+    "endScreenEasingType": "backOut",
     "endScreenShowDelay": 0.3,
     "_id": "56npy1mwRPo5SJHwi8DB68"
   },
@@ -2035,7 +2035,7 @@
       "r": 0,
       "g": 0,
       "b": 0,
-      "a": 133
+      "a": 117
     },
     "_spriteFrame": {
       "__uuid__": "7d8f9b89-4fd1-4c9f-a3ab-38ec7cded7ca@f9941",
