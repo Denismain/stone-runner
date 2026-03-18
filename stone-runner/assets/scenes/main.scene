@@ -193,6 +193,7 @@
     "playerAnimator": {
       "__id__": 7
     },
+    "jumpsNumber": 5,
     "_id": "2b3M47XZxFnqxmxMs4Fla3"
   },
   {
@@ -1123,6 +1124,8 @@
     },
     "stoneYOffset": 0.4,
     "stoneCount": 5,
+    "minZOffset": 1,
+    "maxZOffset": 13,
     "_id": "17a/SChThFiJ/GQvGioLdR"
   },
   {

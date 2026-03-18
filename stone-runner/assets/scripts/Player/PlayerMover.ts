@@ -1,4 +1,6 @@
 import {_decorator, CCFloat, Component, RigidBody, v3, Vec3} from 'cc';
+import EventManager from '../Plugins/EventManager';
+import Events from '../Enums/Events';
 const {ccclass, property} = _decorator;
 
 @ccclass('PlayerMover')
@@ -12,6 +14,8 @@ export class PlayerMover extends Component {
 
     public executeJump(): void {
         this.playerRigidBody.applyImpulse(v3(0, this.jumpForce, 0));
+
+        EventManager.emit(Events.JUMP);
     }
 
     protected update(dt: number): void {
