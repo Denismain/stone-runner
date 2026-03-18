@@ -1,6 +1,6 @@
-import {_decorator, BoxCollider, Component, ConeCollider, ICollisionEvent, SphereCollider} from 'cc';
-import { Road } from '../Road';
-import { PlayerController } from './PlayerController';
+import {_decorator, BoxCollider, Component, ICollisionEvent} from 'cc';
+import {Road} from '../Road';
+import {PlayerController} from './PlayerController';
 const {ccclass, property} = _decorator;
 
 @ccclass('PlayerCollisionDetected')
@@ -21,7 +21,7 @@ export class PlayerCollisionDetected extends Component {
         const road = event.otherCollider.node.getComponent(Road);
 
         if (road) {
-            if (this.playerController._canJump === false) {
+            if (!this.playerController._canJump) {
                 this.playerController.playerOnGround();
             }
         }
