@@ -9,7 +9,7 @@ export class GameManager extends Component {
 
     private screenInfo: ScreenInfo = new ScreenInfo();
 
-    protected onLoad(): void {
+    protected start(): void {
         this.windowResized();
     }
 
@@ -22,6 +22,8 @@ export class GameManager extends Component {
     }
 
     private windowResized(): void {
+        this.screenInfo.updateSettings();
+
         EventManager.emit(Events.WINDOW_RESIZED_CHANGED, this.screenInfo);
     }
 }

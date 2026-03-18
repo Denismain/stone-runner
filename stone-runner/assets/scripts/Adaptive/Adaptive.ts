@@ -6,7 +6,7 @@ const {ccclass, property} = _decorator;
 
 @ccclass('Adaptive')
 export class Adaptive extends Component {
-    protected onEnable(): void {
+    protected onLoad(): void {
         EventManager.on(Events.WINDOW_RESIZED_CHANGED, this.onWindowResizedChanged, this);
     }
 

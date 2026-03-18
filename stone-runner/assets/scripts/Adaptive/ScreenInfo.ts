@@ -14,17 +14,7 @@ export class ScreenInfo extends Component {
     private gameWidth: number = 0;
     private gameHeight: number = 0;
 
-    protected onEnable(): void {
-        EventManager.on(Events.WINDOW_RESIZED_CHANGED, this.onWindowResizedChanged, this);
-    }
-
-    private onWindowResizedChanged(): void {
-        console.log('on');
-
-        this.calculateOrientation();
-    }
-
-    private calculateOrientation(): void {
+    public updateSettings(): void {
         const canvasSize = View.instance.getVisibleSize();
 
         this.gameHeight = canvasSize.height;
