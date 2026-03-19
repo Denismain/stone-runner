@@ -15,7 +15,7 @@ export class GameManager extends Component {
     }
 
     protected onEnable(): void {
-        this.subscribeEvents();   
+        this.subscribeEvents();
     }
 
     private subscribeEvents(): void {

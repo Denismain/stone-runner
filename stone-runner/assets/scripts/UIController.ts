@@ -15,10 +15,9 @@ export class UIController extends Component {
     @property({type: Enum(Easings)}) private shadowEasingType: Easings = Easings.sineInOut;
     @property(CCFloat) private shadowShowDelay: number = 0.2;
 
-    @property(Node) private endScreenLogoNode: Node = null;
+    @property(UIOpacity) private endScreenLogoOpacity: UIOpacity = null;
     @property({type: Enum(Easings)}) private endScreenEasingType: Easings = Easings.backOut;
     @property(CCFloat) private endScreenShowDelay: number = 0.3;
-    @property(Vec2) private endLogoScale: Vec2 = new Vec2();
 
     protected onEnable(): void {
         EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
@@ -75,9 +74,9 @@ export class UIController extends Component {
     private endLogoShow(): void {
         const easingType: TweenEasing = this.endScreenEasingType.toString() as TweenEasing;
 
-        tween(this.endScreenLogoNode)
+        tween(this.endScreenLogoOpacity)
             .to(this.endScreenShowDelay,
-                {scale: v3(this.endLogoScale.x, this.endLogoScale.y, 1)},
+                {opacity: 255},
                 {easing: easingType}
             )
             .start();

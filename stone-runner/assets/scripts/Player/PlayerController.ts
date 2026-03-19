@@ -12,6 +12,7 @@ export class PlayerController extends Component {
     @property(PlayerAnimator) private playerAnimator: PlayerAnimator = null;
 
     private canJump: boolean = false;
+    private isGameEnd: boolean = false;
 
     public get _canJump(): boolean {
         return this.canJump;
@@ -23,10 +24,12 @@ export class PlayerController extends Component {
 
     protected onEnable(): void {
         EventManager.on(Events.TOUCH, this.onTouch, this);
+        EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.TOUCH, this.onTouch, this);
+        EventManager.off(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     public playerOnGround(): void {
@@ -44,7 +47,15 @@ export class PlayerController extends Component {
     }
 
     private onTouch(): void {
+        if (this.isGameEnd) {
+            return;
+        }
+        
         this.attemptToJump();
+    }
+
+    private onGameplayEnd(): void {
+        this.isGameEnd = true;
     }
 }
 

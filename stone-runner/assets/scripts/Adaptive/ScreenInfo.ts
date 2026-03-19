@@ -12,13 +12,10 @@ export class ScreenInfo extends Component {
     private gameWidth: number = 0;
     private gameHeight: number = 0;
 
-    public get GAME_WIDTH(): number {
-        return this.gameWidth;
-    }
-
-    public get GAME_HEIGHT(): number {
-        return this.gameHeight;
-    }
+    public get GAME_WIDTH(): number {return this.gameWidth;}
+    public get GAME_HEIGHT(): number {return this.gameHeight;}
+    public set GAME_WIDTH(width: number) {this.gameHeight = width;}
+    public set GAME_HEIGHT(height: number) {this.gameHeight = height;}
 
     public updateSettings(): void {
         const canvasSize = View.instance.getVisibleSize();

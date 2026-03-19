@@ -62,5 +62,3 @@ export class Adaptive extends Component {
         this.setUIProperties(screenInfo);
     }
 }
-
-
