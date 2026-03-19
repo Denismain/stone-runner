@@ -1,7 +1,8 @@
-import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3, TweenEasing, Vec2} from 'cc';
+import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3, TweenEasing} from 'cc';
 import EventManager from './Plugins/EventManager';
 import Events from './Enums/Events';
 import Easings from './Enums/Easings';
+import { InputCatcher } from './Plugins/Input/InputCatcher';
 const {ccclass, property} = _decorator;
 
 @ccclass('UIController')
@@ -18,6 +19,8 @@ export class UIController extends Component {
     @property(UIOpacity) private endScreenLogoOpacity: UIOpacity = null;
     @property({type: Enum(Easings)}) private endScreenEasingType: Easings = Easings.backOut;
     @property(CCFloat) private endScreenShowDelay: number = 0.3;
+
+    @property(InputCatcher) private redirectInput: InputCatcher = null;
 
     protected onEnable(): void {
         EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
@@ -65,6 +68,7 @@ export class UIController extends Component {
                     {easing: easingType}
                 )
                 .call(() => {
+                    this.redirectInput.enabled = true;
                     resolve();
                 })
                 .start();

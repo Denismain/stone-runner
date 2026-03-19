@@ -10,6 +10,9 @@ export class GameManager extends Component {
 
     private isGameEnd: boolean = false;
 
+    private IOS_URL = 'https://www.apple.com/app-store/';
+    private ANDROID_URL = 'https://play.google.com/store/games';
+
     protected start(): void {
         this.windowResized();
     }
@@ -22,6 +25,7 @@ export class GameManager extends Component {
         View.instance.on('design-resolution-changed', this.windowResized, this);
 
         EventManager.on(Events.GAMEPLAY_END, this.onGameEnd, this);
+        EventManager.on(Events.REDIRECT, this.onRedirect, this);
     }
 
     private windowResized(): void {
@@ -30,6 +34,10 @@ export class GameManager extends Component {
         this.screenInfo.updateSettings();
 
         EventManager.emit(Events.WINDOW_RESIZED_CHANGED, this.screenInfo);
+    }
+
+    private onRedirect(): void {
+        window.open(this.IOS_URL);
     }
 
     private onGameEnd(): void {
