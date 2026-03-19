@@ -1,4 +1,4 @@
-import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3, TweenEasing} from 'cc';
+import {_decorator, CCFloat, Component, Enum, Node, tween, UIOpacity, v3, TweenEasing, Vec2} from 'cc';
 import EventManager from './Plugins/EventManager';
 import Events from './Enums/Events';
 import Easings from './Enums/Easings';
@@ -18,6 +18,7 @@ export class UIController extends Component {
     @property(Node) private endScreenLogoNode: Node = null;
     @property({type: Enum(Easings)}) private endScreenEasingType: Easings = Easings.backOut;
     @property(CCFloat) private endScreenShowDelay: number = 0.3;
+    @property(Vec2) private endLogoScale: Vec2 = new Vec2();
 
     protected onEnable(): void {
         EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);  
@@ -76,7 +77,7 @@ export class UIController extends Component {
 
         tween(this.endScreenLogoNode)
             .to(this.endScreenShowDelay,
-                {scale: v3(1, 1, 1)},
+                {scale: v3(this.endLogoScale.x, this.endLogoScale.y, 1)},
                 {easing: easingType}
             )
             .start();

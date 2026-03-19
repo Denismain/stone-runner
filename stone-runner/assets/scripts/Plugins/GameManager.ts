@@ -1,12 +1,11 @@
 import {_decorator, Component, View} from 'cc';
 import EventManager from './EventManager';
 import Events from '../Enums/Events';
-import { ScreenInfo } from '../Adaptive/ScreenInfo';
+import {ScreenInfo} from '../Adaptive/ScreenInfo';
 const {ccclass} = _decorator;
 
 @ccclass('GameManager')
 export class GameManager extends Component {
-
     private screenInfo: ScreenInfo = new ScreenInfo();
 
     protected start(): void {
