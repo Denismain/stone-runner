@@ -21,7 +21,7 @@ export class UIController extends Component {
     @property(Vec2) private endLogoScale: Vec2 = new Vec2();
 
     protected onEnable(): void {
-        EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);  
+        EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     protected onDisable(): void {
