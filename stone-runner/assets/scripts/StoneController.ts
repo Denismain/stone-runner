@@ -1,5 +1,7 @@
 import {_decorator, CCFloat, CCInteger, Component, Node, Vec3} from 'cc';
 import {PoolManager} from './Plugins/Pool/PoolManager';
+import EventManager from './Plugins/EventManager';
+import Events from './Enums/Events';
 const {ccclass, property} = _decorator;
 
 @ccclass('StoneController')
@@ -11,12 +13,22 @@ export class StoneController extends Component {
     @property(CCFloat) private minZOffset: number = 1;
     @property(CCFloat) private maxZOffset: number = 13;
 
+    @property(Vec3) private spawnAngle: Vec3 = new Vec3();
+
     private offset: Vec3 = new Vec3();
     
     private poolManager: PoolManager = null;
 
     protected onLoad(): void {
         this.poolManager = PoolManager.getInstance();
+    }
+
+    protected onEnable(): void {
+        EventManager.on(Events.RESTART, this.onRestart, this);
+    }
+
+    protected onDisable(): void {
+        EventManager.off(Events.RESTART, this.onRestart, this);
     }
 
     protected start(): void {
@@ -34,7 +46,13 @@ export class StoneController extends Component {
          
         stone.node.y = this.stoneYOffset;
 
+        stone.node.setRotationFromEuler(this.spawnAngle);
+
         const randomOffset = this.minZOffset + Math.random() * (this.maxZOffset - this.minZOffset);
         this.offset.z += randomOffset;        
+    }
+
+    private onRestart(): void {
+        //
     }
 }

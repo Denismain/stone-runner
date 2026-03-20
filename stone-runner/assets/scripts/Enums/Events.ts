@@ -1,6 +1,9 @@
 enum Events {
    TOUCH = 'TOUCH',
    JUMP = 'JUMP',
+   FALL = 'FALL',
+   START_GAMEPLAY = 'START_GAMEPLAY',
+   RESTART = 'RESTART',
    GAMEPLAY_END = 'GAMEPLAY_END',
 
    REDIRECT = 'REDIRECT',

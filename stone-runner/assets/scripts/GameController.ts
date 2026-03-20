@@ -16,16 +16,24 @@ export class GameController extends Component {
 
     private currentJumpCounts: number = 0;
 
+    private isFirstTap: boolean = false;
+
     protected onEnable(): void {
         EventManager.on(Events.JUMP, this.onJump, this);
+        EventManager.on(Events.TOUCH, this.onTouch, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.JUMP, this.onJump, this);
+        EventManager.off(Events.TOUCH, this.onTouch, this);
     }
 
-    protected start() :void {
-        this.startGame();
+    public fall(): void {
+        this.currentJumpCounts = 0;
+
+        this.playerAnimator.playPlayerAnimation(AnimationTypes.Idle);
+
+        EventManager.emit(Events.FALL);
     }
 
     private startGame(): void {
@@ -42,5 +50,17 @@ export class GameController extends Component {
         if (this.currentJumpCounts >= this.jumpsNumber) {
             this.gameEnd();
         }
+    }
+
+    private onTouch(): void {
+        if (!this.isFirstTap) {
+            this.isFirstTap = true;
+
+            this.startGame();
+
+            return;
+        }
+
+        EventManager.emit(Events.START_GAMEPLAY);
     }
 }
