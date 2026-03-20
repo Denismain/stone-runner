@@ -14,22 +14,26 @@ export class PlayerMover extends Component {
     @property(CCFloat) private jumpForce: number = 4;
     @property(CCFloat) private fallDelay: number = 0.7;
 
+    private canMove: boolean = false;
+    
+    private fallXAngle: number = 90;
+    private initialAngle: Vec3 = new Vec3();
     private velocity: Vec3 = new Vec3();
 
-    private canMove: boolean = false;
-
-    private fallXAngle: number = 90;
-
     protected onLoad(): void {
-        this.canMove = true;
+        this.initialAngle = this.node.eulerAngles.clone();
     }
 
     protected onEnable(): void {
         EventManager.on(Events.FALL, this.onFall, this);
+        EventManager.on(Events.START_GAMEPLAY, this.onStartGameplay, this);
+        EventManager.on(Events.RESTART, this.onRestart, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.FALL, this.onFall, this);
+        EventManager.off(Events.START_GAMEPLAY, this.onStartGameplay, this);
+        EventManager.off(Events.RESTART, this.onRestart, this);
     }
 
     public executeJump(): void {
@@ -60,5 +64,13 @@ export class PlayerMover extends Component {
             .to(this.fallDelay, {eulerAngles: v3(this.fallXAngle, 0, 0)})
             .call(() => {EventManager.emit(Events.RESTART)})
             .start();
+    }
+
+    private onStartGameplay(): void {
+        this.canMove = true;
+    }
+
+    private onRestart(): void {
+        this.node.eulerAngles = this.initialAngle;
     }
 }

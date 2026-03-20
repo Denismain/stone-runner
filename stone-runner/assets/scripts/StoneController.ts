@@ -2,6 +2,7 @@ import {_decorator, CCFloat, CCInteger, Component, Node, Vec3} from 'cc';
 import {PoolManager} from './Plugins/Pool/PoolManager';
 import EventManager from './Plugins/EventManager';
 import Events from './Enums/Events';
+import { Stone } from './Stone';
 const {ccclass, property} = _decorator;
 
 @ccclass('StoneController')
@@ -18,6 +19,8 @@ export class StoneController extends Component {
     private offset: Vec3 = new Vec3();
     
     private poolManager: PoolManager = null;
+
+    private stonesArray: Stone[] = [];
 
     protected onLoad(): void {
         this.poolManager = PoolManager.getInstance();
@@ -45,14 +48,21 @@ export class StoneController extends Component {
         const stone = this.poolManager.getObject(this.offset, this.stonesParent);
          
         stone.node.y = this.stoneYOffset;
-
         stone.node.setRotationFromEuler(this.spawnAngle);
 
         const randomOffset = this.minZOffset + Math.random() * (this.maxZOffset - this.minZOffset);
         this.offset.z += randomOffset;        
+
+        this.stonesArray.push(stone);
+    }
+
+    private destroyStones(): void {
+        for (const item of this.stonesArray) {
+            item.returnToPool();
+        }        
     }
 
     private onRestart(): void {
-        //
+        this.destroyStones();
     }
 }
