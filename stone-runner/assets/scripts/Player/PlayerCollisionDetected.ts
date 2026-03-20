@@ -2,6 +2,8 @@ import {_decorator, BoxCollider, Component, ICollisionEvent} from 'cc';
 import {Road} from '../Road';
 import {PlayerController} from './PlayerController';
 import {Stone} from '../Stone';
+import EventManager from '../Plugins/EventManager';
+import Events from '../Enums/Events';
 const {ccclass, property} = _decorator;
 
 @ccclass('PlayerCollisionDetected')
@@ -14,10 +16,14 @@ export class PlayerCollisionDetected extends Component {
 
     protected onEnable(): void {
         this.playerBoxCollider.on('onCollisionEnter', this.onCollisionEnter, this);
+
+        EventManager.on(Events.RESTART, this.onRestart, this);
     }
 
     protected onDisable(): void {
         this.playerBoxCollider.off('onCollisionEnter', this.onCollisionEnter, this);
+
+        EventManager.off(Events.RESTART, this.onRestart, this);
     }
 
     private onCollisionEnter(event: ICollisionEvent): void {
@@ -26,17 +32,21 @@ export class PlayerCollisionDetected extends Component {
         const road = event.otherCollider.node.getComponent(Road);
         const stone = event.otherCollider.node.getComponent(Stone);
 
-        if (road) {
-            if (!this.playerController._canJump) {
-                this.playerController.playerOnGround();
-            }
-        }
-
         if (stone) {
             this.isLock = true;
 
             this.playerController.playerFall();
         }
+
+        if (road) {
+            if (!this.playerController._canJump) {
+                this.playerController.playerOnGround();
+            }
+        }
+    }
+
+    private onRestart(): void {
+        this.isLock = false;
     }
 }
 

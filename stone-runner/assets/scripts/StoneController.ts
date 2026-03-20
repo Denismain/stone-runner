@@ -62,7 +62,12 @@ export class StoneController extends Component {
         }        
     }
 
-    private onRestart(): void {
+    private respawnStones(): void {
         this.destroyStones();
+        this.spawnStones();
+    }
+
+    private onRestart(): void {
+        this.respawnStones();
     }
 }

@@ -15,25 +15,30 @@ export class PlayerMover extends Component {
     @property(CCFloat) private fallDelay: number = 0.7;
 
     private canMove: boolean = false;
+    private isGameEnd: boolean = false;
     
     private fallXAngle: number = 90;
     private initialAngle: Vec3 = new Vec3();
     private velocity: Vec3 = new Vec3();
+    private initialPos: Vec3 = new Vec3();
 
     protected onLoad(): void {
         this.initialAngle = this.node.eulerAngles.clone();
+        this.initialPos = this.node.position.clone();
     }
 
     protected onEnable(): void {
         EventManager.on(Events.FALL, this.onFall, this);
         EventManager.on(Events.START_GAMEPLAY, this.onStartGameplay, this);
         EventManager.on(Events.RESTART, this.onRestart, this);
+        EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.FALL, this.onFall, this);
         EventManager.off(Events.START_GAMEPLAY, this.onStartGameplay, this);
         EventManager.off(Events.RESTART, this.onRestart, this);
+        EventManager.off(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     public executeJump(): void {
@@ -46,7 +51,7 @@ export class PlayerMover extends Component {
     }
 
     protected update(dt: number): void {
-        if (!this.canMove) return;
+        if (!this.canMove || this.isGameEnd) return;
 
         this.setPlayerSpeed(dt);
     }
@@ -72,5 +77,12 @@ export class PlayerMover extends Component {
 
     private onRestart(): void {
         this.node.eulerAngles = this.initialAngle;
+        //this.node.position = this.initialPos;
+
+        this.canMove = true;
+    }
+
+    private onGameplayEnd(): void {
+        this.isGameEnd = true;
     }
 }

@@ -28,12 +28,14 @@ export class PlayerController extends Component {
     protected onEnable(): void {
         EventManager.on(Events.TOUCH, this.onTouch, this);
         EventManager.on(Events.START_GAMEPLAY, this.onStartGameplay, this);
+        EventManager.on(Events.RESTART, this.onRestart, this);
         EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.TOUCH, this.onTouch, this);
         EventManager.off(Events.START_GAMEPLAY, this.onStartGameplay, this);
+        EventManager.off(Events.RESTART, this.onRestart, this);
         EventManager.off(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
 
@@ -64,6 +66,10 @@ export class PlayerController extends Component {
 
     private onStartGameplay(): void {
         this.isGameStart = true;
+    }
+
+    private onRestart(): void {
+        this.canJump = true;
     }
 
     private onGameplayEnd(): void {

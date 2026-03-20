@@ -13,19 +13,23 @@ export class GameController extends Component {
         type: CCInteger,
         tooltip: 'Количество прыжков для появления финального экрана'
     }) private jumpsNumber: number = 5;
+    @property(CCInteger) private lifeCount: number = 2;
 
     private currentJumpCounts: number = 0;
+    private currnetLifeCounts: number = 0;
 
     private isFirstTap: boolean = false;
 
     protected onEnable(): void {
         EventManager.on(Events.JUMP, this.onJump, this);
         EventManager.on(Events.TOUCH, this.onTouch, this);
+        EventManager.on(Events.RESTART, this.onRestart, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.JUMP, this.onJump, this);
         EventManager.off(Events.TOUCH, this.onTouch, this);
+        EventManager.off(Events.RESTART, this.onRestart, this);
     }
 
     public fall(): void {
@@ -62,5 +66,17 @@ export class GameController extends Component {
         }
 
         EventManager.emit(Events.START_GAMEPLAY);
+    }
+
+    private onRestart(): void {
+        this.currnetLifeCounts++;
+
+        if (this.currnetLifeCounts >= this.lifeCount) {
+            this.gameEnd();
+
+            return;
+        }
+
+        this.playerAnimator.playPlayerAnimation(AnimationTypes.Run);
     }
 }
