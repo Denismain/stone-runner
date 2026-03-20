@@ -69,7 +69,7 @@ export class PlayerController extends Component {
     }
 
     private onRestart(): void {
-        this.canJump = false;
+        this.canJump = true;
     }
 
     private onGameplayEnd(): void {
