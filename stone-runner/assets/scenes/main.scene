@@ -193,7 +193,7 @@
       "__uuid__": "574021c3-7cb4-4685-8085-7ce8b83570b2",
       "__expectedType__": "cc.Prefab"
     },
-    "count": 10
+    "count": 6
   },
   {
     "__type__": "cc.Node",
@@ -1186,6 +1186,9 @@
     "stonesParent": {
       "__id__": 34
     },
+    "playerNode": {
+      "__id__": 10
+    },
     "stoneYOffset": 0.4,
     "stoneCount": 5,
     "minZOffset": 1,
@@ -1672,7 +1675,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 534.1666666666666,
+    "_orthoHeight": 504.16666666666663,
     "_near": 1,
     "_far": 2000,
     "_color": {
