@@ -29,14 +29,14 @@ export class PlayerMover extends Component {
 
     protected onEnable(): void {
         EventManager.on(Events.FALL, this.onFall, this);
-        EventManager.on(Events.START_GAMEPLAY, this.onStartGameplay, this);
         EventManager.on(Events.RESTART, this.onRestart, this);
         EventManager.on(Events.GAMEPLAY_END, this.onGameplayEnd, this);
+
+        EventManager.once(Events.START_GAMEPLAY, this.onStartGameplay, this);
     }
 
     protected onDisable(): void {
         EventManager.off(Events.FALL, this.onFall, this);
-        EventManager.off(Events.START_GAMEPLAY, this.onStartGameplay, this);
         EventManager.off(Events.RESTART, this.onRestart, this);
         EventManager.off(Events.GAMEPLAY_END, this.onGameplayEnd, this);
     }
